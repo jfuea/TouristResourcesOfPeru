@@ -14,52 +14,54 @@ namespace TouristResourcesOfPeru.Repositories
             new Item
             {
                 Id = Guid.NewGuid(),
-                Name = "Festividad Del Señor De Los Temblores",
-                Category = "5. ACONTECIMIENTOS PROGRAMADOS",
-                TypeOfCategory = "Fiestas",
-                SubTypeOfCategory = "Fiestas religiosas-patronales",
-                Latitude = -71.9801M,
-                Longitude = -13.5153M
+                NOMBRE_DEL_RECURSO = "Festividad Del Señor De Los Temblores",
+                CATEGORIA = "5. ACONTECIMIENTOS PROGRAMADOS",
+                TIPO_DE_CATEGORIA = "Fiestas",
+                SUB_TIPO_CATEGORIA = "Fiestas religiosas-patronales",
+                LATITUD = -71.9801M,
+                LONGITUD = -13.5153M
             },
             new Item
             {
                 Id = Guid.NewGuid(),
-                Name = "Laguna De Langui-Layo",
-                Category = "1. SITIOS NATURALES",
-                TypeOfCategory = "g. Cuerpo de Agua",
-                SubTypeOfCategory = "Lagunas",
-                Latitude = -71.166020M,
-                Longitude = -14.499080M
+                NOMBRE_DEL_RECURSO = "Laguna De Langui-Layo",
+                CATEGORIA = "1. SITIOS NATURALES",
+                TIPO_DE_CATEGORIA = "g. Cuerpo de Agua",
+                SUB_TIPO_CATEGORIA = "Lagunas",
+                LATITUD = -71.166020M,
+                LONGITUD = -14.499080M
             },
         };
 
-        public IEnumerable<Item> GetItems()
+        public async Task<IEnumerable<Item>> GetItemsAsync()
         {
-            return items;
+            return await Task.FromResult(items);
         }
 
-        public Item GetItem(Guid id)
+        public async Task<Item> GetItemAsync(Guid id)
         {
             var item = items.Where(item => item.Id == id).SingleOrDefault();
-            return item;
+            return await Task.FromResult(item);
         }
 
-        public void CreateItem(Item item)
+        public async Task CreateItemAsync(Item item)
         {
             items.Add(item);
+            await Task.CompletedTask;
         }
 
-        public void UpdateItem(Item item)
+        public async Task UpdateItemAsync(Item item)
         {
             var index = items.FindIndex(existingItem => existingItem.Id == item.Id);
             items[index] = item;
+            await Task.CompletedTask;
         }
 
-        public void DeleteItem(Guid id)
+        public async Task DeleteItemAsync(Guid id)
         {
             var index = items.FindIndex(existingItem => existingItem.Id == id);
             items.RemoveAt(index);
-
+            await Task.CompletedTask;
         }
     }
 }
