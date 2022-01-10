@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -44,7 +45,9 @@ namespace TouristResourcesOfPeru
 
             services.AddControllers(options =>
                 options.SuppressAsyncSuffixInActionNames = false
-            );
+            ).AddOData(options =>
+                options.Select().Filter().OrderBy());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TouristResourcesOfPeru", Version = "v1" });
